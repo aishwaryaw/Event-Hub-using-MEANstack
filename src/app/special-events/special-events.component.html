@@ -1,0 +1,61 @@
+<div class="row mt-5" *ngIf = "!hideEvents">
+  <div class="col-md-4 mb-3"  *ngFor="let event of events">
+    <div class="card text-center">
+      <div class="card-body">
+        <h5 class="card-title">{{event.name}}</h5>
+        <p class="card-text">{{event.description}}</p>
+        <p class="card-text">{{event.price}}</p>
+        <p class="card-text">quantity</p>
+      
+        <input type="number" #quantity [(ngModel)]="quantity1"  >
+        <button class="btn btn-success" (click)="buyTicket(event)" >Buy Tickets</button>
+       
+      </div>
+      <div class="card-footer text-muted">
+        {{event.date}}
+      </div>
+    </div>
+</div>
+<button class="btn btn-primary" (click)="addEvent()">add event </button>
+  </div>
+ 
+<div *ngIf="hideEvents" class="py-5">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+    <div class="card rounded-0">
+      <div class="card-header">
+        <h3 class="mb-0">New event</h3>
+      </div>
+      <div class="card-body">
+    <form #form="ngForm" (ngSubmit)="onSubmitAddEvent(form.value)" class="well">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" #name ="ngModel"  name="name"  ngModel >
+            <small class="text-danger" *ngIf="name.invalid && name.touched">name is required</small>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <input type="text" class="form-control"  #description="ngModel"  name="description" ngModel>
+            <small class="text-danger" *ngIf="description.invalid && description.touched">description is required</small>
+        </div>
+
+        <div class="form-group">
+            <label>Price</label>
+            <input type="text" class="form-control"  #price="ngModel"  name="price" ngModel>
+            <small class="text-danger" *ngIf="price.invalid && price.touched">description is required</small>
+        </div>
+        <div class="form-group">
+            <label>Date</label>
+            <input type="text" class="form-control"  #date = "ngModel" required name="date" ngModel>
+            <small class="text-danger" *ngIf="date.invalid && date.touched">date is required</small>
+        </div>
+        <button type="submit" class="btn btn-success" [disabled]="form.invalid">Save</button>
+    </form>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    
+
+  

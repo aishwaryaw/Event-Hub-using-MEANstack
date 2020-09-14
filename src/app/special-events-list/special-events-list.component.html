@@ -1,0 +1,23 @@
+<div class="row mt-5" >
+    <div class="col-md-4 mb-3"  *ngFor="let event of events" >
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">{{event.name}}</h5>
+          <p class="card-text">{{event.description}}</p>
+         
+            <p class="card-text"> {{event.date}}</p> 
+            <p class="card-text"> {{event.price}}</p> 
+            <p class="card-text"> {{event.quantity}}</p> 
+            </div>
+        
+        <div class="card-footer text-muted">
+          <button class="btn btn-danger" (click)="deleteTicket(event)">delete</button>
+      </div>
+      </div>
+    </div>
+    
+  <button *ngIf= "badge > 0" style="width:100%;" class="btn btn-success" (click)="checkout()">checkout</button>
+  <p *ngIf= "badge == 0" > no tickets bought</p>
+</div>
+
+ 

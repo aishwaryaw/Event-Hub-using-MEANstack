@@ -1,0 +1,125 @@
+<p *ngIf= "badge == 0" > no tickets bought</p>
+<div *ngIf ="badge >0">
+<mat-horizontal-stepper linear >
+    <mat-step label="Shipping address" [stepControl]="form1">
+<form [formGroup]="form1"  >
+                  
+ <div class="form-group">
+   <label>Address</label>
+     <input type="text" class="form-control" formControlName="address" id="state "required  >
+     <div *ngIf="form1.get('address').touched">  
+     <mat-error *ngIf="form1.controls['address'].hasError('required')"> address is required</mat-error>
+    </div>
+ </div>
+
+ <div class="form-group">
+  <label>state</label>
+    <input type="text" class="form-control" formControlName="state" id="state" required  >
+    <div *ngIf="form1.get('state').touched">  
+    <mat-error *ngIf="form1.controls['state'].hasError('required')">state is required</mat-error>
+ </div>
+</div>
+
+<div class="form-group">
+  <label>city</label>
+    <input type="text" class="form-control" formControlName="city"id="city" required  >
+    <div *ngIf="form1.get('city').touched">  
+    <mat-error *ngIf="form1.controls['city'].hasError('required')">city is required</mat-error>
+    </div>
+</div>
+
+    <div class="form-group">
+  <label>pin</label>
+   <input type="text" class="form-control" required formControlName="pin"minLength="6" minLength="6" >
+   <div *ngIf="form1.get('pin').touched">  
+      <mat-error *ngIf="form1.get('pin').hasError('minlength')">pin must be 6 characters</mat-error>
+      <mat-error *ngIf="form1.get('pin').hasError('required') ">pin is required</mat-error>
+      
+  
+   </div>
+  </div>
+                      
+ 
+
+ <button class="btn btn-success"  [disabled]="!form1.valid" matStepperNext> Make payment </button>
+       
+
+
+  </form>
+    </mat-step>
+    <mat-step label="payment details"  [stepControl]="form2">
+            <form [formGroup]="form2" > 
+    <label>Pick payment method</label><br>
+    <div>
+    <mat-radio-group>
+     <mat-radio-button value="COD" [checked]="true" (click)="selectMethod1()"> COD </mat-radio-button>
+<br>
+   <mat-radio-button value="card_payment" (click)="selectMethod2()"> Card payment </mat-radio-button>
+    </mat-radio-group>
+    </div>
+    <div *ngIf="method" >  
+            
+ <div class="form-group">
+      <label>card number</label>
+        <input type="password" formControlName="number" required maxLength="16"class="form-control" >
+    <div *ngIf="form2.get('number').touched">
+                      <mat-error *ngIf="form2.controls['number'].hasError('required')">card no is required</mat-error>
+                <mat-error *ngIf="form2.controls['number'].hasError('minlength')">card must be 16 characters</mat-error>
+                </div>
+                <!--custom validation-->
+   
+ </div>
+ <div class="form-group">
+       <label>cvv</label>
+         <input type="text" class="form-control" formControlName="cvv" maxLength="3"required>
+         <div *ngIf="form2.get('cvv').touched">
+                    <mat-error *ngIf="form2.controls['cvv'].hasError('required')" >cvv is required</mat-error>
+            <mat-error *ngIf="form2.controls['cvv'].hasError('minlength')" >cvv must be 3 characters</mat-error>
+            </div>
+                 </div>
+            
+             
+ <mat-form-field>
+       <mat-label>Month</mat-label>
+             <mat-select>
+                 <mat-option *ngFor="let month of monthOfYear" [value]="month" required>{{month}} </mat-option>
+             </mat-select>
+        </mat-form-field>
+
+    <mat-form-field>
+       <mat-label>Year</mat-label>
+             <mat-select>
+               <mat-option *ngFor="let year of years" [value]="year" required> {{year}} </mat-option>
+            </mat-select>
+            </mat-form-field>
+                  
+       </div>
+       <button class="btn btn-success" (click)="placeOrder()" [disabled]="!form2.valid" matStepperNext>Place order </button>
+               </form>   
+        </mat-step>
+
+
+ <mat-step label="final step">
+        <div class="row mt-5">
+           <div> <h2>Your order is placed successfully</h2></div>
+           <div> your order is : </div>
+        <div class="col-md-4 mb-3"  *ngFor="let event of events">
+                <div class="card text-center">
+                  <div class="card-body">
+                    <h5 class="card-title">{{event.name}}</h5>
+                    <p class="card-text">{{event.description}}</p>
+                    <button  class="btn btn-success" (click)="buyTicket(event)">Buy Tickets</button>
+                  </div>
+                  <div class="card-footer text-muted">
+                    {{event.date}}
+                  </div>
+                </div>
+                </div>
+                </div>
+     
+
+        </mat-step>
+</mat-horizontal-stepper>
+
+
+</div>
